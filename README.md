@@ -16,7 +16,7 @@ The project demonstrates the viability of modern RL techniques for solving compl
 The fully trained agent successfully learns to sort packages and route them to the correct exit lane (middle of platform).
 
 <!-- You should create a GIF of your simulation and replace the URL below -->
-![Sorting Demo GIF](media/centering.gif)
+![Sorting Demo GIF](media/animation4.gif)
 *<p align="center">Demonstration of the trained agent sorting packages succesfully.</p>*
 
 ### Accuracy of the Sorting Policy
