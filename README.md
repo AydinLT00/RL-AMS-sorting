@@ -95,8 +95,8 @@ The project requires a standard Python environment with the following key librar
 ### Instructions
 1.  **Clone the repository:**
     ```bash
-    git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git
-    cd YOUR_REPO
+    git clone https://github.com/AydinLT00/RL-AMS-sorting.git
+    cd RL-AMS-sorting
     ```
 2.  **Install dependencies:**
     ```bash
