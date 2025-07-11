@@ -31,13 +31,13 @@ The plot below shows the deviation of each box from its target exit position ove
 The fully trained agent successfully learns to differentiate packages by size and route them to the correct exit lane (small packages to the right, large packages to the left).
 
 <!-- You should create a GIF of your simulation and replace the URL below -->
-![Sorting Demo GIF](media/sizeSort.gif)
+![Sorting Demo GIF](media/sizeSortanimation(2).gif)
 *<p align="center">Demonstration of the trained agent sorting packages of different sizes.</p>*
 
 ### Accuracy of the Sorting Policy
 The plot below shows the deviation of each box from its target exit position over 100 simulated runs. The agent consistently guides the vast majority of boxes to the correct location with minimal error, demonstrating an effective and reliable sorting policy.
 
-![Final Sorting Deviation](media/errorSizesort.png)
+![Final Sorting Deviation](media/errorSize.png)
 *<p align="center">Figure: Deviation of box x-positions from their target at the conveyor exit.</p>*
 
 ---
