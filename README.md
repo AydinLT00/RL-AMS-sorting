@@ -1,8 +1,8 @@
 # Reinforcement Learning for Automated Package Sorting
 
-[![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![NumPy](https://img.shields.io/badge/NumPy-013243.svg?style=flat&logo=numpy&logoColor=white)](https://numpy.org/)
-[![Matplotlib](https://img.shields.io/badge/Matplotlib-%23ffffff.svg?style=flat&logo=Matplotlib&logoColor=black)](https://matplotlib.org/)
+
+[![Platform](https://img.shields.io/badge/Platform-MATLAB-blue.svg)](https://www.mathworks.com/products/matlab.html)
+[![Toolbox](https://img.shields.io/badge/Toolbox-Reinforcement%20Learning-orange.svg)](https://www.mathworks.com/products/reinforcement-learning.html)
 
 This repository contains the implementation of a Reinforcement Learning (RL) agent for controlling an automated material handling system (AMS). The agent is trained using **Proximal Policy Optimization (PPO)** to sort packages of varying sizes to designated exit points on a 5x5 grid of actuated conveyor modules.
 
