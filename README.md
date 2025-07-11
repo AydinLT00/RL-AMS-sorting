@@ -58,29 +58,29 @@ The plot below shows the deviation of each box from its target exit position ove
 ## 🔧 How It Works
 
 ### 1. The Environment: Automated Material System (AMS)
-The simulation environment consists of:
+The simulation environment, defined in `RL_environment.m`, consists of:
 -   A **5x5 grid** of independently controlled conveyor modules.
 -   Each module's action is defined by a **rotation angle** and **actuation velocity**.
 -   Packages of two different sizes (small and large) are generated in pairs at the entry of the grid.
--   A physics engine handles package movement and **collision detection/resolution**.
+-   A custom physics engine handles package movement and **collision detection/resolution**.
 
 The sorting objective is to route packages based on their size:
--   **Small Packages** (`diameter < 0.225m`) should exit at `x ≈ 0.2m`.
--   **Large Packages** (`diameter ≥ 0.225m`) should exit at `x ≈ 0.6m`.
+-   **Small Packages** (`diameter < 0.225m`) should exit at a target lane on the right.
+-   **Large Packages** (`diameter ≥ 0.225m`) should exit at a target lane on the left.
 
 ### 2. The RL Agent: Proximal Policy Optimization (PPO)
-We use the PPO algorithm, an on-policy, actor-critic method ideal for continuous action spaces.
--   **Actor Network:** Decides the next action (module rotation and velocity).
--   **Critic Network:** Estimates the value of the current state, helping to stabilize training.
--   **Observation Space:** The agent receives a 60-dimensional state vector describing up to 10 packages, including their position, size, velocity, and distance to their target lane.
+We use the PPO algorithm from the MATLAB Reinforcement Learning Toolbox.
+-   **Actor-Critic Architecture:**
+    -   The **Actor** network (`rlContinuousGaussianActor`) decides the next action (module rotation and velocity). It is a feedforward network with layers of size [32, 32, 16].
+    -   The **Critic** network (`rlValueFunction`) estimates the value of the current state to stabilize training. It is also a feedforward network with layers [32, 32, 16].
+-   **Observation Space:** The agent receives a 100-dimensional state vector describing the system, including module actions and the state (position, velocity, size) of up to 10 packages.
+-   **Key Agent Options:** The PPO agent is configured with an `ExperienceHorizon` of 512, a `ClipFactor` of 0.1, and a `GAEFactor` of 0.95.
 
 ### 3. Reward Function Design
-A carefully designed reward function was crucial for guiding the agent. The total reward is a combination of four components:
-
+A carefully designed reward function (`getReward` method) was crucial for guiding the agent. The total reward is a combination of four components:
 $$
 R_{\text{total}} = R_{\text{alignment}} + R_{\text{exit}} - R_{\text{gap}} + R_{\text{forward}}
 $$
-
 Where:
 -   **`R_alignment`**: Rewards the agent for moving packages into their correct target lane.
 -   **`R_exit`**: Provides a large bonus for successfully exiting from the correct location.
@@ -92,45 +92,41 @@ To tackle the complexity of the task, the agent was trained using a curriculum l
 
 1.  **Stage 1: Centered Sorting:** The agent first learns the basic mechanics of moving packages by training to guide all packages to a single exit point in the center. This establishes a baseline policy for stable system operation.
 2.  **Stage 2: Sorting by Size:** Using the pre-trained model from Stage 1 as a starting point, the agent is then fine-tuned on the main task: sorting packages to different exits based on their size.
-3.  **Refinement:** Throughout training, hyperparameters like the PPO clip factor and entropy bonus are scheduled to transition the agent from an exploratory to an exploitative policy, refining its behavior for higher accuracy.
+3.  **Refinement:** Throughout training, hyperparameters like learning rates and entropy loss are scheduled to transition the agent from an exploratory to an exploitative policy, refining its behavior for higher accuracy.
 
 ---
 
 ## 💻 How to Run
 
-### Dependencies
-The project requires a standard Python environment with the following key libraries:
--   `numpy`
--   `matplotlib`
--   A custom simulation environment file (e.g., `ams_env.py`) where the AMS logic is defined.
--   An RL library or framework (the implementation in the paper appears custom but could be adapted from libraries like `stable-baselines3` or a custom PyTorch/TensorFlow implementation).
+### Prerequisites
+-   **MATLAB R2021b** or newer.
+-   **Reinforcement Learning Toolbox™**.
+-   **(Optional) Deep Learning Toolbox™**.
+-   **(Optional) Parallel Computing Toolbox™** (if `UseParallel` is set to `true`).
 
 ### Instructions
-1.  **Clone the repository:**
+1.  **Clone or download the repository** and place all the files in a single directory.
     ```bash
     git clone https://github.com/AydinLT00/RL-AMS-sorting.git
-    cd RL-AMS-sorting
     ```
-2.  **Install dependencies:**
-    ```bash
-    pip install numpy matplotlib
-    # Add installation steps for your RL framework if applicable
+2.  **Open MATLAB**.
+3.  **Navigate** to the directory where you saved the files using the MATLAB file browser or the `cd` command in the Command Window.
+    ```matlab
+    cd path/to/your/repository
     ```
-3.  **Run the training script:**
-    Execute the main Python script to start the training process.
-    ```bash
-    python train_ppo_sorter.py
+4.  **Run the main training script** by typing its name in the Command Window and pressing Enter.
+    ```matlab
+    RL_main
     ```
-    The script should handle the curriculum learning stages and save the trained model. A separate script can be used for evaluation and visualization.
+    - To train a new agent, ensure the `istrained` flag at the top of `RL_main.m` is set to `false`.
+    - To load and simulate a pre-trained agent, set `istrained` to `true` and ensure a `agent_trained.mat` file is in the directory.
 
 ---
 
 ## License
 This project is licensed under a proprietary license. Please see the `LICENSE` file for details.
 
-```text
-Copyright (c) [Year] [Your Full Name]
-
-All Rights Reserved.
-
-Permission is hereby granted... [etc.]
+## 🙏 Acknowledgments
+This project was completed for the "Integrating Bayesian Optimization, Reinforcement Learning & Language Models in Robotics" group project at **Politecnico di Milano**, under the supervision of Prof. Loris Roveda.
+-   **Team:** Mohsen Ghasemi, Aidin Latifi, Shiyuan Liu
+-   **Professor:** Loris Roveda
