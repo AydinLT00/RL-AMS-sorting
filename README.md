@@ -12,17 +12,32 @@ The project demonstrates the viability of modern RL techniques for solving compl
 
 ## 🚀 Showcase & Demos
 
+### Center Sorting Performance
+The fully trained agent successfully learns to sort packages and route them to the correct exit lane (middle of platform).
+
+<!-- You should create a GIF of your simulation and replace the URL below -->
+![Sorting Demo GIF](media/centering.gif)
+*<p align="center">Demonstration of the trained agent sorting packages succesfully.</p>*
+
+### Accuracy of the Sorting Policy
+The plot below shows the deviation of each box from its target exit position over 100 simulated runs. The agent consistently guides the vast majority of boxes to the center with minimal error, demonstrating an effective and reliable sorting policy.
+
+![Final Sorting Deviation](media/errorCenter.png)
+*<p align="center">Figure: Deviation of box x-positions from their target at the conveyor exit.</p>*
+
+---
+
 ### Final Sorting Performance
 The fully trained agent successfully learns to differentiate packages by size and route them to the correct exit lane (small packages to the right, large packages to the left).
 
 <!-- You should create a GIF of your simulation and replace the URL below -->
-![Sorting Demo GIF](https://i.imgur.com/eBf2s3k.gif)
+![Sorting Demo GIF](media/sizeSort.gif)
 *<p align="center">Demonstration of the trained agent sorting packages of different sizes.</p>*
 
 ### Accuracy of the Sorting Policy
 The plot below shows the deviation of each box from its target exit position over 100 simulated runs. The agent consistently guides the vast majority of boxes to the correct location with minimal error, demonstrating an effective and reliable sorting policy.
 
-![Final Sorting Deviation](https://i.imgur.com/XF8Z3Zz.png)
+![Final Sorting Deviation](media/errorSizesort.png)
 *<p align="center">Figure: Deviation of box x-positions from their target at the conveyor exit.</p>*
 
 ---
