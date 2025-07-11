@@ -78,9 +78,11 @@ We use the PPO algorithm from the MATLAB Reinforcement Learning Toolbox.
 
 ### 3. Reward Function Design
 A carefully designed reward function (`getReward` method) was crucial for guiding the agent. The total reward is a combination of four components:
+
 $$
 R_{\text{total}} = R_{\text{alignment}} + R_{\text{exit}} - R_{\text{gap}} + R_{\text{forward}}
 $$
+
 Where:
 -   **`R_alignment`**: Rewards the agent for moving packages into their correct target lane.
 -   **`R_exit`**: Provides a large bonus for successfully exiting from the correct location.
